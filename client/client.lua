@@ -82,6 +82,8 @@ Citizen.CreateThread(function()
             data.id = Config.PlayerProps[i].id
             data.obj = CreateObject(modelHash, Config.PlayerProps[i].x, Config.PlayerProps[i].y, Config.PlayerProps[i].z -1.2, false, false, false)
             SetEntityAsMissionEntity(data.obj, true)
+            PlaceObjectOnGroundProperly(data.obj)
+            Wait(1000)
             FreezeEntityPosition(data.obj, true)
             SetModelAsNoLongerNeeded(data.obj)
 
