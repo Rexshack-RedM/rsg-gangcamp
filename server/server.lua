@@ -49,15 +49,16 @@ CreateThread(function()
 end)
 
 RegisterServerEvent('rsg-gangcamp:server:saveProp')
-AddEventHandler('rsg-gangcamp:server:saveProp', function(data, propId, citizenid, gang)
+AddEventHandler('rsg-gangcamp:server:saveProp', function(data, propId, citizenid, gang, proptype)
     local datas = json.encode(data)
 
-    MySQL.Async.execute('INSERT INTO player_props (properties, propid, citizenid, gang) VALUES (@properties, @propid, @citizenid, @gang)',
+    MySQL.Async.execute('INSERT INTO player_props (properties, propid, citizenid, gang, proptype) VALUES (@properties, @propid, @citizenid, @gang, @proptype)',
     {
         ['@properties'] = datas,
         ['@propid'] = propId,
         ['@citizenid'] = citizenid,
-        ['@gang'] = gang
+        ['@gang'] = gang,
+        ['@proptype'] = proptype
     })
 end)
 
@@ -94,7 +95,7 @@ AddEventHandler('rsg-gangcamp:server:newProp', function(proptype, location, hash
         TriggerClientEvent('RSGCore:Notify', src, Lang:t('you_already_have_objects_down',{MaxPropCount = Config.MaxPropCount}), 'error')
     else
         table.insert(Config.PlayerProps, PropData)
-        TriggerEvent('rsg-gangcamp:server:saveProp', PropData, propId, citizenid, gang)
+        TriggerEvent('rsg-gangcamp:server:saveProp', PropData, propId, citizenid, gang, proptype)
         TriggerEvent('rsg-gangcamp:server:updateProps')
     end
 end)
