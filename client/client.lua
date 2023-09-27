@@ -210,13 +210,13 @@ AddEventHandler('rsg-gangmenu:client:campitemsmenu', function(data)
 end)
 
 RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
-    RSGCore.Functions.TriggerCallback('rsg-gangcamp:server:getallpropdata', function(result)
+	RSGCore.Functions.TriggerCallback('rsg-gangcamp:server:getallpropdata', function(result)
         lib.registerContext({
             id = 'gangcamp_propmenu',
             title = RSGCore.Shared.Items[result[1].proptype].label,
             options = {
                 {
-                    title = 'Credit : '..result[1].credit,
+                    title = 'Credit : $'..result[1].credit,
                     description = 'current maintenance credit',
                     icon = 'fa-solid fa-user-tie',
                 },
@@ -226,17 +226,29 @@ RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
                     icon = 'fa-solid fa-user-tie',
                     event = 'rsg-gangmenu:client:addcredit',
                     args = { 
-                        propid = result[1].propid,
-                        credit = result[1].credit
-                    },
+						propid = result[1].propid,
+						credit = result[1].credit
+					},
+                    arrow = true
+                },
+                {
+                    title = 'Remove Credit',
+                    description = 'remove maintenance credit',
+                    icon = 'fa-solid fa-user-tie',
+                    event = 'rsg-gangmenu:client:removecredit',
+                    args = { 
+						propid = result[1].propid,
+						credit = result[1].credit
+					},
                     arrow = true
                 },
             }
         })
         lib.showContext("gangcamp_propmenu")
-    end, data.propid)
+	end, data.propid)
 end)
 
+-- add credit
 RegisterNetEvent('rsg-gangmenu:client:addcredit', function(data)
     local PlayerData = RSGCore.Functions.GetPlayerData()
     local cash = tonumber(PlayerData.money['cash'])
@@ -262,6 +274,34 @@ RegisterNetEvent('rsg-gangmenu:client:addcredit', function(data)
         TriggerServerEvent('rsg-gangcamp:server:addcredit', creditadjust, tonumber(input[1]), data.propid )
     else
         RSGCore.Functions.Notify('not enough cash to do this!', 'error')
+    end
+end)
+
+-- remove credit
+RegisterNetEvent('rsg-gangmenu:client:removecredit', function(data)
+    local PlayerData = RSGCore.Functions.GetPlayerData()
+    local cash = tonumber(PlayerData.money['cash'])
+    local input = lib.inputDialog('Remove Credit', {
+        { 
+            label = 'Amount',
+            type = 'input',
+            required = true,
+            icon = 'fa-solid fa-dollar-sign'
+        },
+    })
+    
+    if not input then
+        return
+    end
+    
+    if tonumber(input[1]) == nil then
+        return
+    end
+    if tonumber(input[1]) < tonumber(data.credit)  then
+        local creditadjust = tonumber(data.credit) - tonumber(input[1])
+        TriggerServerEvent('rsg-gangcamp:server:removecredit', creditadjust, tonumber(input[1]), data.propid )
+    else
+        RSGCore.Functions.Notify('you don\'t have that much credit!', 'error')
     end
 end)
 

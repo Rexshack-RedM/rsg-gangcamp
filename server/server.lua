@@ -263,3 +263,17 @@ RegisterNetEvent('rsg-gangcamp:server:addcredit', function(newcredit, removemone
     Wait(5000)
     RSGCore.Functions.Notify(src, 'credit is now $'..newcredit, 'primary')
 end)
+
+-- remove credit
+RegisterNetEvent('rsg-gangcamp:server:removecredit', function(newcredit, addmoney, propid)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    -- remove money
+    Player.Functions.AddMoney("cash", addmoney, "gangcamp-credit")
+    -- sql update
+    MySQL.update('UPDATE player_props SET credit = ? WHERE propid = ?', {newcredit, propid})
+    -- notify
+    RSGCore.Functions.Notify(src, 'credit removed', 'success')
+    Wait(5000)
+    RSGCore.Functions.Notify(src, 'credit is now $'..newcredit, 'primary')
+end)
