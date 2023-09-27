@@ -166,11 +166,46 @@ RegisterNetEvent('rsg-gangcamp:client:mainmenu', function(gang)
                     event = 'rsg-gangmenu:client:mainmenu',
                     arrow = true
                 },
+                {
+                    title = 'Gang Camp Items',
+                    description = 'gang camp items',
+                    icon = 'fa-solid fa-user-tie',
+                    event = 'rsg-gangmenu:client:campitemsmenu',
+                    args = { gang = playergang },
+                    arrow = true
+                },
             }
         })
         lib.showContext("gangcamp_mainmenu")
     else
         RSGCore.Functions.Notify('unauthorised access!', 'error', 3000)
+    end
+end)
+
+-- camp deployed menu
+RegisterNetEvent('rsg-gangmenu:client:campitemsmenu')
+AddEventHandler('rsg-gangmenu:client:campitemsmenu', function(data)
+    local options = {}
+    for k, v in pairs(Config.PlayerProps) do
+        if v.gang == data.gang then
+            options[#options + 1] = {
+                title = RSGCore.Shared.Items[v.proptype].label,
+                description = 'description',
+                icon = 'fa-solid fa-box',
+                event = '',
+                args = { },
+                arrow = true,
+            }
+        end
+        lib.registerContext({
+            id = 'gangcamp_deployed',
+            title = 'Deployed Items',
+            menu = 'gangcamp_mainmenu',
+            onBack = function() end,
+            position = 'top-right',
+            options = options
+        })
+        lib.showContext('gangcamp_deployed')        
     end
 end)
 
