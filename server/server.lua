@@ -249,3 +249,17 @@ end
 
 SetTimeout(Config.BillingCycle * (60 * 60 * 1000), UpkeepInterval) -- hours
 --SetTimeout(Config.BillingCycle * (60 * 1000), UpkeepInterval) -- mins (for testing)
+
+-- add credit
+RegisterNetEvent('rsg-gangcamp:server:addcredit', function(newcredit, removemoney, propid)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    -- remove money
+    Player.Functions.RemoveMoney("cash", removemoney, "gangcamp-credit")
+    -- sql update
+    MySQL.update('UPDATE player_props SET credit = ? WHERE propid = ?', {newcredit, propid})
+    -- notify
+    RSGCore.Functions.Notify(src, 'credit added', 'success')
+    Wait(5000)
+    RSGCore.Functions.Notify(src, 'credit is now $'..newcredit, 'primary')
+end)

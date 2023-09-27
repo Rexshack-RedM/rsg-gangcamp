@@ -224,14 +224,45 @@ RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
                     title = 'Add Credit',
                     description = 'add maintenance credit',
                     icon = 'fa-solid fa-user-tie',
-                    event = 'rsg-gangmenu:client:campitemsmenu',
-                    args = { propid = result[1].propid },
+                    event = 'rsg-gangmenu:client:addcredit',
+                    args = { 
+						propid = result[1].propid,
+						credit = result[1].credit
+					},
                     arrow = true
                 },
             }
         })
         lib.showContext("gangcamp_propmenu")
 	end, data.propid)
+end)
+
+RegisterNetEvent('rsg-gangmenu:client:addcredit', function(data)
+    local PlayerData = RSGCore.Functions.GetPlayerData()
+    local cash = tonumber(PlayerData.money['cash'])
+    local input = lib.inputDialog('Add Credit', {
+        { 
+            label = 'Amount',
+            type = 'input',
+            required = true,
+            icon = 'fa-solid fa-dollar-sign'
+        },
+    })
+    
+    if not input then
+        return
+    end
+    
+    if tonumber(input[1]) == nil then
+        return
+    end
+
+    if cash >= tonumber(input[1]) then
+        local creditadjust = data.credit + tonumber(input[1])
+        TriggerServerEvent('rsg-gangcamp:server:addcredit', creditadjust, tonumber(input[1]), data.propid )
+    else
+        RSGCore.Functions.Notify('not enough cash to do this!', 'error')
+    end
 end)
 
 -- remove prop object
