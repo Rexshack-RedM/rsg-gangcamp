@@ -210,7 +210,7 @@ AddEventHandler('rsg-gangmenu:client:campitemsmenu', function(data)
 end)
 
 RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
-	RSGCore.Functions.TriggerCallback('rsg-gangcamp:server:getallpropdata', function(result)
+    RSGCore.Functions.TriggerCallback('rsg-gangcamp:server:getallpropdata', function(result)
         lib.registerContext({
             id = 'gangcamp_propmenu',
             title = RSGCore.Shared.Items[result[1].proptype].label,
@@ -226,15 +226,15 @@ RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
                     icon = 'fa-solid fa-user-tie',
                     event = 'rsg-gangmenu:client:addcredit',
                     args = { 
-						propid = result[1].propid,
-						credit = result[1].credit
-					},
+                        propid = result[1].propid,
+                        credit = result[1].credit
+                    },
                     arrow = true
                 },
             }
         })
         lib.showContext("gangcamp_propmenu")
-	end, data.propid)
+    end, data.propid)
 end)
 
 RegisterNetEvent('rsg-gangmenu:client:addcredit', function(data)
