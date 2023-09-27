@@ -113,35 +113,23 @@ AddEventHandler('rsg-gangcamp:server:newProp', function(proptype, location, hash
     end
 end)
 
---[[
--- check prop
-RegisterServerEvent('rsg-gangcamp:server:propHasBeenHarvested')
-AddEventHandler('rsg-gangcamp:server:propHasBeenHarvested', function(propId)
-    for _, v in pairs(Config.PlayerProps) do
-        if v.id == propId then
-            v.beingHarvested = true
-        end
-    end
-
-    TriggerEvent('rsg-gangcamp:server:updateProps')
-end)
---]]
-
 -- distory prop
 RegisterServerEvent('rsg-gangcamp:server:destroyProp')
-AddEventHandler('rsg-gangcamp:server:destroyProp', function(propId)
+AddEventHandler('rsg-gangcamp:server:destroyProp', function(data)
     local src = source
-
+    local Player = RSGCore.Functions.GetPlayer(src)
+    
     for k, v in pairs(Config.PlayerProps) do
-        if v.id == propId then
+        if v.id == data.propid then
             table.remove(Config.PlayerProps, k)
         end
     end
 
-    TriggerClientEvent('rsg-gangcamp:client:removePropObject', -1, propId)
-    TriggerEvent('rsg-gangcamp:server:PropRemoved', propId)
+    TriggerClientEvent('rsg-gangcamp:client:removePropObject', -1, data.propid)
+    TriggerEvent('rsg-gangcamp:server:PropRemoved', data.propid)
     TriggerEvent('rsg-gangcamp:server:updateProps')
-    TriggerClientEvent('RSGCore:Notify', src, 'distroyed', 'success')
+    Player.Functions.AddItem(data.item, 1)
+    TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[data.item], "add")
 end)
 
 RegisterServerEvent('rsg-gangcamp:server:updateProps')

@@ -224,6 +224,18 @@ RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
                     },
                     arrow = true
                 },
+                {
+                    title = 'Packup',
+                    description = 'packup camp equiment',
+                    icon = 'fa-solid fa-box',
+                    iconColor = 'red',
+                    serverEvent = 'rsg-gangcamp:server:destroyProp',
+                    args = { 
+                        propid = result[1].propid,
+                        item = result[1].proptype
+                    },
+                    arrow = true
+                },
             }
         })
         lib.showContext("gangcamp_propmenu")
