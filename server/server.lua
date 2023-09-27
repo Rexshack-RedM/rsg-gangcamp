@@ -11,6 +11,12 @@ RSGCore.Functions.CreateUseableItem("tent", function(source)
     TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'tent', `mp005_s_posse_tent_bountyhunter07x`, 'tent')
 end)
 
+-- use hitch post
+RSGCore.Functions.CreateUseableItem("hitchpost", function(source)
+    local src = source
+    TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'hitchpost', `p_hitchingpost01x`, 'hitchpost')
+end)
+
 -----------------------------------------------------------------------
 
 -- remove item
