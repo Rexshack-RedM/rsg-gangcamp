@@ -194,3 +194,44 @@ AddEventHandler('rsg-gangcamp:server:getProps', function()
         table.insert(Config.PlayerProps, propData)
     end
 end)
+
+--------------------------------------------------------------------------------------------------
+
+-- gangcamp upkeep system
+UpkeepInterval = function()
+    local result = MySQL.query.await('SELECT * FROM player_props')
+
+    if not result then goto continue end
+
+    for i = 1, #result do
+        local row = result[i]
+
+        if row.credit >= Config.MaintenancePerCycle then
+            local creditadjust = (row.credit - Config.MaintenancePerCycle)
+
+            MySQL.update('UPDATE player_props SET credit = ? WHERE propid = ?',
+            {
+                creditadjust,
+                row.propid
+            })
+        else
+            MySQL.update('DELETE FROM player_props WHERE propid = ?', {row.propid})
+
+            if Config.PurgeStorage then
+                MySQL.update('DELETE FROM stashitems WHERE stash = ?', { 'gang_'..row.gang })
+            end
+
+            TriggerEvent('rsg-log:server:CreateLog', 'gangmenu', 'Gang Object Lost', 'red', row.gang..' prop with ID: '..row.propid..' has been lost due to non maintenance!')
+        end
+    end
+
+    ::continue::
+
+    print('Gangcamp Upkeep Cycle Complete')
+
+    SetTimeout(Config.BillingCycle * (60 * 60 * 1000), UpkeepInterval) -- hours
+    --SetTimeout(Config.BillingCycle * (60 * 1000), UpkeepInterval) -- mins (for testing)
+end
+
+SetTimeout(Config.BillingCycle * (60 * 60 * 1000), UpkeepInterval) -- hours
+--SetTimeout(Config.BillingCycle * (60 * 1000), UpkeepInterval) -- mins (for testing)
