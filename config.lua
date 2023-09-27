@@ -2,6 +2,7 @@ Config = Config or {}
 Config.PlayerProps = {}
 
 -- settings
+Config.MenuKeybind          = 'J'
 Config.MaxPropCount         = 40 -- maximum props
 Config.MaintenancePerCycle  = 1 -- $ amount for prop maintenance
 Config.PurgeStorage         = true
