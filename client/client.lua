@@ -101,7 +101,6 @@ end
 
 -- trigger promps
 Citizen.CreateThread(function()
-    CampMenuPrompt()
     while true do
         local t = 1000
         local ped = PlayerPedId()
