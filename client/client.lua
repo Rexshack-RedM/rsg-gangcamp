@@ -182,7 +182,7 @@ RegisterNetEvent('rsg-gangcamp:client:mainmenu', function(gang)
     end
 end)
 
--- camp deployed menu
+-- camp deployed
 RegisterNetEvent('rsg-gangmenu:client:campitemsmenu')
 AddEventHandler('rsg-gangmenu:client:campitemsmenu', function(data)
     local options = {}
@@ -192,8 +192,8 @@ AddEventHandler('rsg-gangmenu:client:campitemsmenu', function(data)
                 title = RSGCore.Shared.Items[v.proptype].label,
                 description = 'description',
                 icon = 'fa-solid fa-box',
-                event = '',
-                args = { },
+                event = 'rsg-gangcamp:client:propmenu',
+                args = { propid = v.id },
                 arrow = true,
             }
         end
@@ -207,6 +207,31 @@ AddEventHandler('rsg-gangmenu:client:campitemsmenu', function(data)
         })
         lib.showContext('gangcamp_deployed')        
     end
+end)
+
+RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
+	RSGCore.Functions.TriggerCallback('rsg-gangcamp:server:getallpropdata', function(result)
+        lib.registerContext({
+            id = 'gangcamp_propmenu',
+            title = RSGCore.Shared.Items[result[1].proptype].label,
+            options = {
+                {
+                    title = 'Credit : '..result[1].credit,
+                    description = 'current maintenance credit',
+                    icon = 'fa-solid fa-user-tie',
+                },
+                {
+                    title = 'Add Credit',
+                    description = 'add maintenance credit',
+                    icon = 'fa-solid fa-user-tie',
+                    event = 'rsg-gangmenu:client:campitemsmenu',
+                    args = { propid = result[1].propid },
+                    arrow = true
+                },
+            }
+        })
+        lib.showContext("gangcamp_propmenu")
+	end, data.propid)
 end)
 
 -- remove prop object

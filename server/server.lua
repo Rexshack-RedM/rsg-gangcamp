@@ -32,6 +32,19 @@ end)
 
 -----------------------------------------------------------------------
 
+-- get all prop data
+RSGCore.Functions.CreateCallback('rsg-gangcamp:server:getallpropdata', function(source, cb, propid)
+    MySQL.query('SELECT * FROM player_props WHERE propid = ?', {propid}, function(result)
+        if result[1] then
+            cb(result)
+        else
+            cb(nil)
+        end
+    end)
+end)
+
+-----------------------------------------------------------------------
+
 -- update prop data
 CreateThread(function()
     while true do
