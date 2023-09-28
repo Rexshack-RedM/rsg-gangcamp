@@ -353,7 +353,7 @@ AddEventHandler('rsg-gangcamp:client:placeNewProp', function(proptype, pHash, it
         return
     end
 
-    RSGCore.Functions.Notify('Too close to another campsite object!', 'error', 3000)
+    RSGCore.Functions.Notify('can\'t place it here!', 'error', 5000)
 
     Wait(3000)
 end)
