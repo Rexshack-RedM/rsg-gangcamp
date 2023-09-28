@@ -17,6 +17,12 @@ RSGCore.Functions.CreateUseableItem("hitchpost", function(source)
     TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'hitchpost', `p_hitchingpost01x`, 'hitchpost')
 end)
 
+-- use cooking station
+RSGCore.Functions.CreateUseableItem("cookstation", function(source)
+    local src = source
+    TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'cookstation', `p_campfirecombined03x`, 'cookstation')
+end)
+
 -----------------------------------------------------------------------
 
 -- remove item
