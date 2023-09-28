@@ -151,7 +151,7 @@ RegisterNetEvent('rsg-gangcamp:client:mainmenu', function(gang)
                     title = 'Gang Camp Items',
                     description = 'gang camp items',
                     icon = 'fa-solid fa-campground',
-                    event = 'rsg-gangmenu:client:campitemsmenu',
+                    event = 'rsg-gangcamp:client:campitemsmenu',
                     args = { gang = playergang },
                     arrow = true
                 },
@@ -164,8 +164,8 @@ RegisterNetEvent('rsg-gangcamp:client:mainmenu', function(gang)
 end)
 
 -- camp deployed
-RegisterNetEvent('rsg-gangmenu:client:campitemsmenu')
-AddEventHandler('rsg-gangmenu:client:campitemsmenu', function(data)
+RegisterNetEvent('rsg-gangcamp:client:campitemsmenu')
+AddEventHandler('rsg-gangcamp:client:campitemsmenu', function(data)
     local options = {}
     for k, v in pairs(Config.PlayerProps) do
         if v.gang == data.gang then
@@ -207,7 +207,7 @@ RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
                     description = 'add maintenance credit',
                     icon = 'fa-solid fa-plus',
                     iconColor = 'green',
-                    event = 'rsg-gangmenu:client:addcredit',
+                    event = 'rsg-gangcamp:client:addcredit',
                     args = { 
                         propid = result[1].propid,
                         credit = result[1].credit
@@ -219,7 +219,7 @@ RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
                     description = 'remove maintenance credit',
                     icon = 'fa-solid fa-minus',
                     iconColor = 'red',
-                    event = 'rsg-gangmenu:client:removecredit',
+                    event = 'rsg-gangcamp:client:removecredit',
                     args = { 
                         propid = result[1].propid,
                         credit = result[1].credit
@@ -245,7 +245,7 @@ RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
 end)
 
 -- add credit
-RegisterNetEvent('rsg-gangmenu:client:addcredit', function(data)
+RegisterNetEvent('rsg-gangcamp:client:addcredit', function(data)
     local PlayerData = RSGCore.Functions.GetPlayerData()
     local cash = tonumber(PlayerData.money['cash'])
     local input = lib.inputDialog('Add Credit', {
@@ -274,7 +274,7 @@ RegisterNetEvent('rsg-gangmenu:client:addcredit', function(data)
 end)
 
 -- remove credit
-RegisterNetEvent('rsg-gangmenu:client:removecredit', function(data)
+RegisterNetEvent('rsg-gangcamp:client:removecredit', function(data)
     local PlayerData = RSGCore.Functions.GetPlayerData()
     local cash = tonumber(PlayerData.money['cash'])
     local input = lib.inputDialog('Remove Credit', {
