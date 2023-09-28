@@ -150,7 +150,7 @@ RegisterNetEvent('rsg-gangcamp:client:mainmenu', function(gang)
                 {
                     title = 'Gang Camp Items',
                     description = 'gang camp items',
-                    icon = 'fa-solid fa-user-tie',
+                    icon = 'fa-solid fa-campground',
                     event = 'rsg-gangmenu:client:campitemsmenu',
                     args = { gang = playergang },
                     arrow = true
@@ -171,7 +171,6 @@ AddEventHandler('rsg-gangmenu:client:campitemsmenu', function(data)
         if v.gang == data.gang then
             options[#options + 1] = {
                 title = RSGCore.Shared.Items[v.proptype].label,
-                description = 'description',
                 icon = 'fa-solid fa-box',
                 event = 'rsg-gangcamp:client:propmenu',
                 args = { propid = v.id },
@@ -195,11 +194,13 @@ RegisterNetEvent('rsg-gangcamp:client:propmenu', function(data)
         lib.registerContext({
             id = 'gangcamp_propmenu',
             title = RSGCore.Shared.Items[result[1].proptype].label,
+            menu = 'gangcamp_deployed',
+            onBack = function() end,
             options = {
                 {
                     title = 'Credit : $'..result[1].credit,
                     description = 'current maintenance credit',
-                    icon = 'fa-solid fa-user-tie',
+                    icon = 'fa-solid fa-coins',
                 },
                 {
                     title = 'Add Credit',
