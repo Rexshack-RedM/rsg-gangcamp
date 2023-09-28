@@ -23,6 +23,12 @@ RSGCore.Functions.CreateUseableItem("cookstation", function(source)
     TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'cookstation', `p_campfirecombined03x`, 'cookstation')
 end)
 
+-- use camptorch station
+RSGCore.Functions.CreateUseableItem("camptorch", function(source)
+    local src = source
+    TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'camptorch', `p_torchpost01x`, 'camptorch')
+end)
+
 -----------------------------------------------------------------------
 
 -- remove item
