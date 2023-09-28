@@ -107,23 +107,23 @@ Citizen.CreateThread(function()
         local pos = GetEntityCoords(ped)
         t = 4
         for k, v in pairs(Config.PlayerProps) do
-            local proptype = v.proptype
-            local gang = v.gang
-            if GetDistanceBetweenCoords(pos.x, pos.y, pos.z, v.x, v.y, v.z, true) < 1.3 and not IsPedInAnyVehicle(PlayerPedId() and proptype == 'tent', false) then
-                lib.showTextUI('[J] - Open Menu', {
-                    position = "top-center",
-                    icon = 'fa-solid fa-bars',
-                    style = {
-                        borderRadius = 0,
-                        backgroundColor = '#82283E',
-                        color = 'white'
-                    }
-                })
-                if IsControlJustReleased(0, RSGCore.Shared.Keybinds[Config.MenuKeybind]) then
-                    TriggerEvent('rsg-gangcamp:client:mainmenu', gang)
+            if v.proptype == 'tent' then
+                if GetDistanceBetweenCoords(pos.x, pos.y, pos.z, v.x, v.y, v.z, true) < 1.3 and not IsPedInAnyVehicle(PlayerPedId(), false) then
+                    lib.showTextUI('[J] - Open Menu', {
+                        position = "top-center",
+                        icon = 'fa-solid fa-bars',
+                        style = {
+                            borderRadius = 0,
+                            backgroundColor = '#82283E',
+                            color = 'white'
+                        }
+                    })
+                    if IsControlJustReleased(0, RSGCore.Shared.Keybinds[Config.MenuKeybind]) then
+                        TriggerEvent('rsg-gangcamp:client:mainmenu', v.gang)
+                    end
+                else
+                    lib.hideTextUI()
                 end
-            else
-                lib.hideTextUI()
             end
         end
         Wait(t)
