@@ -311,6 +311,11 @@ AddEventHandler('rsg-gangcamp:client:removePropObject', function(prop)
             DeleteObject(o.obj)
         end
     end
+    Wait(1000)
+    if lib.isTextUIOpen() then
+        Wait(500)
+        lib.hideTextUI()
+    end
 end)
 
 -- update props
