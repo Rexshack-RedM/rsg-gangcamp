@@ -222,14 +222,20 @@ UpkeepInterval = function()
             if Config.PurgeStorage then
                 MySQL.update('DELETE FROM stashitems WHERE stash = ?', { 'gang_'..row.gang })
             end
+            
+            if Config.ServerNotify == true then
+                print('object with the is of '..row.propid..' owned by '..row.gang.. 'was deleted')
+            end
 
             TriggerEvent('rsg-log:server:CreateLog', 'gangmenu', 'Gang Object Lost', 'red', row.gang..' prop with ID: '..row.propid..' has been lost due to non maintenance!')
         end
     end
 
     ::continue::
-
-    print('Gangcamp Upkeep Cycle Complete')
+    
+    if Config.ServerNotify == true then
+        print('gangcamp upkeep cycle complete')
+    end
 
     SetTimeout(Config.BillingCycle * (60 * 60 * 1000), UpkeepInterval) -- hours
     --SetTimeout(Config.BillingCycle * (60 * 1000), UpkeepInterval) -- mins (for testing)
