@@ -252,7 +252,7 @@ UpkeepInterval = function()
             end
             
             if Config.ServerNotify == true then
-                print('object with the is of '..row.propid..' owned by '..row.gang.. 'was deleted')
+                print('object with the id of '..row.propid..' owned by the gang '..row.gang.. ' was deleted')
             end
 
             TriggerEvent('rsg-log:server:CreateLog', 'gangmenu', 'Gang Object Lost', 'red', row.gang..' prop with ID: '..row.propid..' has been lost due to non maintenance!')
