@@ -7,7 +7,7 @@ description 'rsg-gangcamp'
 
 shared_scripts {
     '@ox_lib/init.lua',
-	'@rsg-core/shared/locale.lua',
+    '@rsg-core/shared/locale.lua',
     'locales/en.lua',
     'locales/*.lua',
     'config.lua',
@@ -27,6 +27,9 @@ server_scripts {
     '@oxmysql/lib/MySQL.lua',
 }
 
-dependency 'rsg-core'
+dependencies {
+    'rsg-core',
+    'ox_lib',
+}
 
 lua54 'yes'

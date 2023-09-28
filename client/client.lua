@@ -348,7 +348,6 @@ AddEventHandler('rsg-gangcamp:client:placeNewProp', function(proptype, pHash, it
         Wait(10000)
         ClearPedTasks(ped)
         FreezeEntityPosition(ped, false)
-        TriggerServerEvent('rsg-gangcamp:server:removeitem', item, 1)
         TriggerServerEvent('rsg-gangcamp:server:newProp', proptype, pos, heading, pHash, playergang)
         isBusy = false
 

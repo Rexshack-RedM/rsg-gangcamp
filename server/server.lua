@@ -29,21 +29,6 @@ RSGCore.Functions.CreateUseableItem("camptorch", function(source)
     TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'camptorch', `p_torchpost01x`, 'camptorch')
 end)
 
------------------------------------------------------------------------
-
--- remove item
-RegisterServerEvent('rsg-gangcamp:server:removeitem')
-AddEventHandler('rsg-gangcamp:server:removeitem', function(item, amount)
-    local src = source
-    local Player = RSGCore.Functions.GetPlayer(src)
-
-    Player.Functions.RemoveItem(item, amount)
-
-    TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[item], "remove")
-end)
-
------------------------------------------------------------------------
-
 -- get all prop data
 RSGCore.Functions.CreateCallback('rsg-gangcamp:server:getallpropdata', function(source, cb, propid)
     MySQL.query('SELECT * FROM player_props WHERE propid = ?', {propid}, function(result)
@@ -121,6 +106,8 @@ AddEventHandler('rsg-gangcamp:server:newProp', function(proptype, location, head
         TriggerClientEvent('RSGCore:Notify', src, 'you have deployed the max amount!', 'error')
     else
         table.insert(Config.PlayerProps, PropData)
+        Player.Functions.RemoveItem(proptype, 1)
+        TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[proptype], "remove")
         TriggerEvent('rsg-gangcamp:server:saveProp', PropData, propId, citizenid, gang, proptype)
         TriggerEvent('rsg-gangcamp:server:updateProps')
     end
