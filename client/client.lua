@@ -110,7 +110,7 @@ Citizen.CreateThread(function()
         for k, v in pairs(Config.PlayerProps) do
             if v.proptype == 'tent' then
                 if GetDistanceBetweenCoords(pos.x, pos.y, pos.z, v.x, v.y, v.z, true) < 1.3 and not IsPedInAnyVehicle(PlayerPedId(), false) then
-                    lib.showTextUI('[J] - Open Menu', {
+                    lib.showTextUI('['..Config.MenuKeybind..'] - Open Menu', {
                         position = "top-center",
                         icon = 'fa-solid fa-bars',
                         style = {
