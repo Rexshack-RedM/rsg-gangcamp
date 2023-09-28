@@ -62,6 +62,7 @@ Citizen.CreateThread(function()
             
             data.id = Config.PlayerProps[i].id
             data.obj = CreateObject(modelHash, Config.PlayerProps[i].x, Config.PlayerProps[i].y, Config.PlayerProps[i].z -1.2, false, false, false)
+            SetEntityHeading(data.obj, Config.PlayerProps[i].h)
             SetEntityAsMissionEntity(data.obj, true)
             PlaceObjectOnGroundProperly(data.obj)
             Wait(1000)
@@ -336,6 +337,7 @@ AddEventHandler('rsg-gangcamp:client:placeNewProp', function(proptype, pHash, it
     end
 
     local pos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 3.0, 0.0)
+    local heading = GetEntityHeading(PlayerPedId())
     local ped = PlayerPedId()
 
     if CanPlacePropHere(pos) and not IsPedInAnyVehicle(PlayerPedId(), false) and not isBusy then
@@ -347,7 +349,7 @@ AddEventHandler('rsg-gangcamp:client:placeNewProp', function(proptype, pHash, it
         ClearPedTasks(ped)
         FreezeEntityPosition(ped, false)
         TriggerServerEvent('rsg-gangcamp:server:removeitem', item, 1)
-        TriggerServerEvent('rsg-gangcamp:server:newProp', proptype, pos, pHash, playergang)
+        TriggerServerEvent('rsg-gangcamp:server:newProp', proptype, pos, heading, pHash, playergang)
         isBusy = false
 
         return

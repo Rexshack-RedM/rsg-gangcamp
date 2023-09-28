@@ -77,7 +77,7 @@ end)
 
 -- new prop
 RegisterServerEvent('rsg-gangcamp:server:newProp')
-AddEventHandler('rsg-gangcamp:server:newProp', function(proptype, location, hash, gang)
+AddEventHandler('rsg-gangcamp:server:newProp', function(proptype, location, heading, hash, gang)
     local src = source
     local propId = math.random(111111, 999999)
     local Player = RSGCore.Functions.GetPlayer(src)
@@ -90,6 +90,7 @@ AddEventHandler('rsg-gangcamp:server:newProp', function(proptype, location, hash
         x = location.x,
         y = location.y,
         z = location.z,
+        h = heading,
         hash = hash,
         builder = Player.PlayerData.citizenid,
         gang = gang,
