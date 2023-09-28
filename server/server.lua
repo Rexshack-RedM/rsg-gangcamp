@@ -105,7 +105,7 @@ AddEventHandler('rsg-gangcamp:server:newProp', function(proptype, location, hash
     end
 
     if PropCount >= Config.MaxPropCount then
-        TriggerClientEvent('RSGCore:Notify', src, Lang:t('you_already_have_objects_down',{MaxPropCount = Config.MaxPropCount}), 'error')
+        TriggerClientEvent('RSGCore:Notify', src, 'you have deployed the max amount!', 'error')
     else
         table.insert(Config.PlayerProps, PropData)
         TriggerEvent('rsg-gangcamp:server:saveProp', PropData, propId, citizenid, gang, proptype)
