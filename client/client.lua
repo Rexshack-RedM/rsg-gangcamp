@@ -103,10 +103,9 @@ end
 -- trigger promps
 Citizen.CreateThread(function()
     while true do
-        local t = 1000
+        local sleep = 0
         local ped = PlayerPedId()
         local pos = GetEntityCoords(ped)
-        t = 4
         for k, v in pairs(Config.PlayerProps) do
             if v.proptype == 'gangtent' then
                 if GetDistanceBetweenCoords(pos.x, pos.y, pos.z, v.x, v.y, v.z, true) < 1.3 and not IsPedInAnyVehicle(PlayerPedId(), false) then
@@ -127,7 +126,7 @@ Citizen.CreateThread(function()
                 end
             end
         end
-        Wait(t)
+        Wait(sleep)
     end
 end)
 
