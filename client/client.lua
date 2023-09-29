@@ -69,6 +69,21 @@ Citizen.CreateThread(function()
             FreezeEntityPosition(data.obj, true)
             SetModelAsNoLongerNeeded(data.obj)
 
+            -- veg modifiy
+            local veg_modifier_sphere = 0
+            
+            if veg_modifier_sphere == nil or veg_modifier_sphere == 0 then
+                local veg_radius = 3.0
+                local veg_Flags =  1 + 2 + 4 + 8 + 16 + 32 + 64 + 128 + 256
+                local veg_ModType = 1
+                
+                veg_modifier_sphere = Citizen.InvokeNative(0xFA50F79257745E74, Config.PlayerProps[i].x, Config.PlayerProps[i].y, Config.PlayerProps[i].z, veg_radius, veg_ModType, veg_Flags, 0);   -- ADD_VEG_MODIFIER_SPHERE
+                
+            else
+                Citizen.InvokeNative(0x9CF1836C03FB67A2, Citizen.PointerValueIntInitialized(veg_modifier_sphere), 0)
+                veg_modifier_sphere = 0
+            end
+
             SpawnedProps[#SpawnedProps + 1] = data
             hasSpawned = false
 
