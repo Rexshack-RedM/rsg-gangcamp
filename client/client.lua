@@ -173,7 +173,21 @@ RegisterNetEvent('rsg-gangcamp:client:mainmenu', function(gang)
         })
         lib.showContext("gangcamp_mainmenu")
     else
-        RSGCore.Functions.Notify('unauthorised access!', 'error', 3000)
+        lib.registerContext({
+            id = 'gangcamp_robmenu',
+            title = 'Rob Gang Camp Menu',
+            options = {
+                {
+                    title = 'Rob Gang Camp',
+                    description = 'rob this gang camp',
+                    icon = 'fa-solid fa-mask',
+                    event = 'rsg-gangcamp:client:robgangcamp',
+                    args = { gang = gang },
+                    arrow = true
+                },
+            }
+        })
+        lib.showContext("gangcamp_robmenu")
     end
 end)
 
@@ -403,5 +417,28 @@ AddEventHandler('onResourceStop', function(resource)
         SetEntityAsMissionEntity(props, false)
         FreezeEntityPosition(props, false)
         DeleteObject(props)
+    end
+end)
+
+-- rob gang camp
+RegisterNetEvent('rsg-gangcamp:client:robgangcamp')
+AddEventHandler('rsg-gangcamp:client:robgangcamp', function(data)
+    local PlayerData = RSGCore.Functions.GetPlayerData()
+    local playergang = PlayerData.gang.name
+    if playergang ~= data.gang then
+        local hasItem = RSGCore.Functions.HasItem('lockpick', 1)
+        if hasItem == true then
+            TriggerServerEvent('rsg-gangcamp:server:removeitem', 'lockpick', 1)
+            local success = lib.skillCheck({'easy', 'easy', {areaSize = 60, speedMultiplier = 2}, 'hard'}, {'w', 'a', 's', 'd'})
+            if success == true then
+                TriggerServerEvent("inventory:server:OpenInventory", "stash", "gang_" .. data.gang)
+            else
+                RSGCore.Functions.Notify('failed, try again!', 'error')
+            end
+        else
+            RSGCore.Functions.Notify('you need a lockpick to access that!', 'error')
+        end
+    else
+        RSGCore.Functions.Notify('you can\'t rob your own gang!', 'error')
     end
 end)
