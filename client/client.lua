@@ -108,7 +108,7 @@ Citizen.CreateThread(function()
         local pos = GetEntityCoords(ped)
         t = 4
         for k, v in pairs(Config.PlayerProps) do
-            if v.proptype == 'tent' then
+            if v.proptype == 'gangtent' then
                 if GetDistanceBetweenCoords(pos.x, pos.y, pos.z, v.x, v.y, v.z, true) < 1.3 and not IsPedInAnyVehicle(PlayerPedId(), false) then
                     lib.showTextUI('['..Config.MenuKeybind..'] - Open Menu', {
                         position = "top-center",
