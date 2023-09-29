@@ -225,6 +225,17 @@ RegisterNetEvent('rsg-gangcamp:server:removecredit', function(newcredit, addmone
     RSGCore.Functions.Notify(src, 'credit is now $'..newcredit, 'primary')
 end)
 
+-- remove item
+RegisterServerEvent('rsg-gangcamp:server:removeitem')
+AddEventHandler('rsg-gangcamp:server:removeitem', function(item, amount)
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+
+    Player.Functions.RemoveItem(item, amount)
+
+    TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[item], "remove")
+end)
+
 --------------------------------------------------------------------------------------------------
 -- gangcamp upkeep system
 --------------------------------------------------------------------------------------------------
