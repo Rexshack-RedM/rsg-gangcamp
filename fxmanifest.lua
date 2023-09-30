@@ -31,7 +31,7 @@ server_scripts {
 dependencies {
     'rsg-core',
     'ox_lib',
-	'rsg-gangmenu'
+    'rsg-gangmenu'
 }
 
 lua54 'yes'
