@@ -125,7 +125,7 @@ AddEventHandler('rsg-gangcamp:server:destroyProp', function(data)
         end
     end
 
-    TriggerClientEvent('rsg-gangcamp:client:removePropObject', -1, data.propid)
+    TriggerClientEvent('rsg-gangcamp:client:removePropObject', src, data.propid)
     TriggerEvent('rsg-gangcamp:server:PropRemoved', data.propid)
     TriggerEvent('rsg-gangcamp:server:updateProps')
     Player.Functions.AddItem(data.item, 1)
