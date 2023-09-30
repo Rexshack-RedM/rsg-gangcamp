@@ -4,7 +4,7 @@ game 'rdr3'
 
 author 'RexShack#3041'
 description 'rsg-gangcamp'
-version '1.0.2'
+version '1.0.3'
 
 shared_scripts {
     '@ox_lib/init.lua',
@@ -31,6 +31,7 @@ server_scripts {
 dependencies {
     'rsg-core',
     'ox_lib',
+	'rsg-gangmenu'
 }
 
 lua54 'yes'
