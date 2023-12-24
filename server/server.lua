@@ -38,22 +38,22 @@ RSGCore.Functions.CreateUseableItem("gangtent", function(source)
     TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'gangtent', `mp005_s_posse_tent_bountyhunter07x`, 'gangtent')
 end)
 
--- use hitch post
-RSGCore.Functions.CreateUseableItem("hitchpost", function(source)
+-- use ganghitchpost
+RSGCore.Functions.CreateUseableItem("ganghitchpost", function(source)
     local src = source
-    TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'hitchpost', `p_hitchingpost01x`, 'hitchpost')
+    TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'ganghitchpost', `p_hitchingpost01x`, 'ganghitchpost')
 end)
 
--- use cooking station
-RSGCore.Functions.CreateUseableItem("cookstation", function(source)
+-- use gangcookstation
+RSGCore.Functions.CreateUseableItem("gangcookstation", function(source)
     local src = source
-    TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'cookstation', `p_campfirecombined03x`, 'cookstation')
+    TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'gangcookstation', `p_campfirecombined03x`, 'gangcookstation')
 end)
 
--- use camptorch station
-RSGCore.Functions.CreateUseableItem("camptorch", function(source)
+-- use gangtorch
+RSGCore.Functions.CreateUseableItem("gangtorch", function(source)
     local src = source
-    TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'camptorch', `p_torchpost01x`, 'camptorch')
+    TriggerClientEvent('rsg-gangcamp:client:placeNewProp', src, 'gangtorch', `p_torchpost01x`, 'gangtorch')
 end)
 
 -- get all prop data
